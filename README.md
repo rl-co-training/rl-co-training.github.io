@@ -1,2 +1,16 @@
 # rl-co.github.io
-RL-Co: Reinforcement Learning-based Sim–Real Co-Training for Data-Efficient Robotic Manipulation.
+
+Project homepage for `RL-Co: Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models`.
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Production build
+
+```bash
+npm run build
+```
