@@ -7,8 +7,8 @@ const navItems = [
 ];
 
 const highlights = [
-  { value: "+24.0", label: "OpenVLA average real-world gain over SFT co-training" },
-  { value: "+20.3", label: "pi_0.5 average real-world gain over SFT co-training" },
+  { value: "+24.0", label: "OpenVLA average real-world gain in RL-Co-training" },
+  { value: "+20.3", label: "pi_0.5 average real-world gain in RL-Co-training" },
   { value: "4", label: "real-world tabletop manipulation tasks" },
   { value: "2", label: "VLA backbones validated in deployment" },
 ];
@@ -125,9 +125,9 @@ function StatCard({ value, label }) {
     <article className="stat-card">
       <strong>{value}</strong>
       <span>
-        {label === "pi_0.5 average real-world gain over SFT co-training" ? (
+        {label === "pi_0.5 average real-world gain in RL-Co-training" ? (
           <>
-            <PiModel /> average real-world gain over SFT co-training
+            <PiModel /> average real-world gain in RL-Co-training
           </>
         ) : (
           label
@@ -183,8 +183,8 @@ function App() {
               ))}
             </div>
             <p className="hero-note">
-              Real-world gains: +24.0 average points on OpenVLA and +20.3 on <PiModel /> over
-              SFT co-training.
+              Real-world gains in RL-Co-training: +24.0 average points on OpenVLA and +20.3 on{" "}
+              <PiModel />.
             </p>
           </div>
 
