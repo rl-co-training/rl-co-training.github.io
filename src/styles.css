@@ -309,7 +309,8 @@ main {
 .card-grid,
 .task-grid,
 .result-callouts,
-.resource-grid {
+.resource-grid,
+.point-grid {
   display: grid;
   gap: 1rem;
 }
@@ -371,8 +372,67 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.point-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
 .info-card {
   padding: 1.5rem;
+}
+
+.point-card {
+  padding: 1.45rem 1.5rem 1.55rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 250, 241, 0.88);
+  border: 1px solid rgba(24, 33, 38, 0.1);
+  box-shadow: 0 14px 34px rgba(24, 33, 38, 0.06);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.point-card::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-strong), rgba(15, 95, 90, 0.12));
+}
+
+.point-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+}
+
+.point-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.point-number {
+  margin: 0;
+  color: var(--accent-strong);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.point-label {
+  margin: 0;
+  color: var(--warm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.point-title {
+  max-width: 16ch;
 }
 
 .info-card h3,
@@ -380,9 +440,11 @@ main {
 .result-card h3,
 .visual-card h3,
 .resource-card h3,
-.insight-item h3 {
+.insight-item h3,
+.point-card h3 {
   margin: 0 0 0.75rem;
   font-size: 1.6rem;
+  line-height: 1.15;
 }
 
 .visual-grid {
@@ -521,6 +583,7 @@ th {
 .stat-card,
 .abstract-card,
 .info-card,
+.point-card,
 .task-card,
 .feature-figure,
 .result-card,
@@ -562,6 +625,7 @@ th {
   }
 
   .stats-grid,
+  .point-grid,
   .task-grid,
   .card-grid,
   .result-callouts,
@@ -590,6 +654,7 @@ th {
   }
 
   .stats-grid,
+  .point-grid,
   .task-grid,
   .card-grid,
   .result-callouts,

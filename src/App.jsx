@@ -6,11 +6,37 @@ const navItems = [
   { label: "Resources", href: "#resources" },
 ];
 
-const highlights = [
-  { value: "+24.0", label: "OpenVLA average real-world gain in RL-Co-training" },
-  { value: "+20.3", label: "pi_0.5 average real-world gain in RL-Co-training" },
-  { value: "4", label: "real-world tabletop manipulation tasks" },
-  { value: "2", label: "VLA backbones validated in deployment" },
+const keyPoints = [
+  {
+    number: "1",
+    title: "Fully leverages real-world and simulation",
+    body: (
+      <>
+        No high-fidelity simulator is required: simple simulation still boosts real-world success.
+        RL-Co also saves real data, where 20 demos with RL-Co outperform 200 demos with SFT.
+      </>
+    ),
+  },
+  {
+    number: "2",
+    title: "Adapts to different models and environments",
+    body: (
+      <>
+        RL-Co supports OpenVLA and <PiModel />, and transfers across task-aligned simulation
+        environments without requiring high-fidelity rendering.
+      </>
+    ),
+  },
+  {
+    number: "3",
+    title: "Stronger generalization",
+    body: (
+      <>
+        RL-Co achieves significantly higher success rates on unseen objects and unseen initial
+        states than prior baselines.
+      </>
+    ),
+  },
 ];
 
 const tasks = [
@@ -97,9 +123,12 @@ const ablations = [
 
 const resources = [
   { label: "arXiv", href: "https://arxiv.org/abs/2602.12628v2", kind: "primary" },
-  { label: "GitHub", href: "https://github.com/slzhta/RLinf", kind: "secondary" },
-  { label: "Method", href: "#method", kind: "secondary" },
-  { label: "Results", href: "#results", kind: "secondary" },
+  { label: "GitHub", href: "https://github.com/RLinf/RLinf", kind: "primary" },
+  {
+    label: "Hugging Face",
+    href: "https://huggingface.co/collections/RLinf/rl-co",
+    kind: "primary",
+  },
 ];
 
 function PiModel() {
@@ -117,23 +146,6 @@ function SectionHeader({ kicker, title, body }) {
       <h2>{title}</h2>
       <p>{body}</p>
     </div>
-  );
-}
-
-function StatCard({ value, label }) {
-  return (
-    <article className="stat-card">
-      <strong>{value}</strong>
-      <span>
-        {label === "pi_0.5 average real-world gain in RL-Co-training" ? (
-          <>
-            <PiModel /> average real-world gain in RL-Co-training
-          </>
-        ) : (
-          label
-        )}
-      </span>
-    </article>
   );
 }
 
@@ -183,8 +195,7 @@ function App() {
               ))}
             </div>
             <p className="hero-note">
-              Real-world gains in RL-Co-training: +24.0 average points on OpenVLA and +20.3 on{" "}
-              <PiModel />.
+              RL-Co improves VLA policies via simulation RL with real-world supervised anchoring.
             </p>
           </div>
 
@@ -197,33 +208,22 @@ function App() {
         </section>
 
         <section className="section">
-          <div className="stats-grid">
-            {highlights.map((item) => (
-              <StatCard key={item.label} value={item.value} label={item.label} />
-            ))}
-          </div>
-        </section>
-
-        <section className="section split-section">
           <SectionHeader
-            kicker="Abstract"
-            title="Simulation is cheap. Real deployment is not."
-            body="Most sim-real co-training pipelines stop at imitation learning, treating the simulator as a static demonstration source. RL-Co uses the simulator as an interactive training environment while explicitly preserving real-world skills."
+            kicker="Key Contributions"
+            title="What RL-Co adds beyond imitation-only co-training"
+            body="RL-Co treats simulation as an interactive optimization environment rather than a static demonstration source, while keeping real-world behavior anchored throughout training."
           />
-          <div className="abstract-card">
-            <p>
-              We evaluate RL-Co on four real-world tabletop manipulation tasks using OpenVLA and
-              {" "}
-              <PiModel />. Across both backbones, RL-Co consistently outperforms real-only
-              fine-tuning and SFT-based co-training, yielding stronger real-world success, better
-              robustness to unseen objects and states, and substantially improved real-data
-              efficiency.
-            </p>
-            <p>
-              The framework does not depend on photorealistic simulation. Instead, it relies on a
-              task-aligned digital twin with matched robot embodiment, action space, instructions,
-              and initial-state distribution.
-            </p>
+          <div className="point-grid">
+            {keyPoints.map((point) => (
+              <article key={point.number} className="point-card">
+                <div className="point-header">
+                  <p className="point-number">{point.number}</p>
+                  <p className="point-label">Contribution</p>
+                </div>
+                <h3 className="point-title">{point.title}</h3>
+                <p>{point.body}</p>
+              </article>
+            ))}
           </div>
         </section>
 
@@ -243,45 +243,6 @@ function App() {
               simulation RL with real-world supervision as an anchoring term.
             </figcaption>
           </figure>
-          <div className="method-summary">
-            <div className="method-equation">
-              <p className="panel-kicker">Core objective</p>
-              <div className="equation-card" aria-label="Optimization objective">
-                <math display="block">
-                  <mrow>
-                    <msub>
-                      <mi>L</mi>
-                      <mtext>total</mtext>
-                    </msub>
-                    <mo>=</mo>
-                    <msub>
-                      <mi>L</mi>
-                      <mtext>RL</mtext>
-                    </msub>
-                    <mo>+</mo>
-                    <mi>&#x03B2;</mi>
-                    <msub>
-                      <mi>L</mi>
-                      <mtext>SFT</mtext>
-                    </msub>
-                    <mo>(</mo>
-                    <mi>&#x03B8;</mi>
-                    <mo>;</mo>
-                    <msub>
-                      <mi>D</mi>
-                      <mtext>real</mtext>
-                    </msub>
-                    <mo>)</mo>
-                  </mrow>
-                </math>
-              </div>
-              <p>
-                The RL term expands capability with scalable simulator interaction. The real-data
-                term keeps the policy anchored to deployment behavior and mitigates catastrophic
-                forgetting during simulation fine-tuning.
-              </p>
-            </div>
-          </div>
           <div className="card-grid">
             {stageCards.map((card) => (
               <article key={card.title} className="info-card">
