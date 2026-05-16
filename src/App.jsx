@@ -122,7 +122,7 @@ const ablations = [
 ];
 
 const resources = [
-  { label: "arXiv", href: "https://arxiv.org/abs/2602.12628v2", kind: "primary" },
+  { label: "arXiv", href: "https://arxiv.org/abs/2602.12628", kind: "primary" },
   { label: "GitHub", href: "https://github.com/RLinf/RLinf", kind: "primary" },
   {
     label: "Hugging Face",
