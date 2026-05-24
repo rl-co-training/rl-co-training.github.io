@@ -176,7 +176,6 @@ function App() {
       <main id="top">
         <section className="hero section">
           <div className="hero-copy">
-            <p className="eyebrow">Project Page</p>
             <h1 className="hero-title">
               Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models
             </h1>
