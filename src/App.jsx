@@ -124,7 +124,7 @@ const ablations = [
 const resources = [
   { label: "arXiv", href: "https://arxiv.org/abs/2602.12628", kind: "primary" },
   {
-    label: "Docs",
+    label: "Doc",
     href: "https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/co_training.html",
     kind: "primary",
   },
