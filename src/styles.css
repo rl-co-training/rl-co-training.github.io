@@ -469,6 +469,11 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.task-asset-stack {
+  display: grid;
+  gap: 1rem;
+}
+
 .task-card {
   padding: 1.25rem;
 }

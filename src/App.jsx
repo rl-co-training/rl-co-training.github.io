@@ -277,13 +277,25 @@ function App() {
                 photorealistic rendering.
               </figcaption>
             </figure>
-            <div className="task-grid">
-              {tasks.map((task) => (
-                <article key={task.title} className="task-card">
-                  <h3>{task.title}</h3>
-                  <p>{task.description}</p>
-                </article>
-              ))}
+            <div className="task-asset-stack">
+              <div className="task-grid">
+                {tasks.map((task) => (
+                  <article key={task.title} className="task-card">
+                    <h3>{task.title}</h3>
+                    <p>{task.description}</p>
+                  </article>
+                ))}
+              </div>
+              <figure className="feature-figure">
+                <img
+                  src="/images/gen_show-1.png"
+                  alt="Examples of real-world assets and initial-state variations used in the RL-Co tabletop tasks."
+                />
+                <figcaption>
+                  Real-world task assets cover varied objects and initial states for deployment
+                  evaluation.
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>
@@ -350,13 +362,13 @@ function App() {
           </div>
         </section>
 
-        <section className="section split-section">
+        <section className="section">
           <div>
-          <SectionHeader
-            kicker="Generalization"
-            title="Smaller drops under distribution shift"
-            body="On Pick and Place with π₀.₅, RL-Co maintains substantially stronger performance on unseen object categories and unseen initial states."
-          />
+            <SectionHeader
+              kicker="Generalization"
+              title="Smaller drops under distribution shift"
+              body="On Pick and Place with π₀.₅, RL-Co maintains substantially stronger performance on unseen object categories and unseen initial states."
+            />
             <div className="table-shell compact-table">
               <table>
                 <thead>
@@ -379,15 +391,6 @@ function App() {
               </table>
             </div>
           </div>
-          <figure className="feature-figure">
-            <img
-              src="/images/gen_show-1.png"
-              alt="Figure illustrating generalization examples for RL-Co under unseen manipulation settings."
-            />
-            <figcaption>
-              RL-Co retains stronger object and state robustness than pure imitation-based baselines.
-            </figcaption>
-          </figure>
         </section>
 
         <section className="section" id="ablations">
