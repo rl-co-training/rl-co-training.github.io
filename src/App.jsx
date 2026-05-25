@@ -3,7 +3,7 @@ const navItems = [
   { label: "Tasks", href: "#tasks" },
   { label: "Results", href: "#results" },
   { label: "Ablations", href: "#ablations" },
-  { label: "Resources", href: "#resources" },
+  { label: "BibTeX", href: "#resources" },
 ];
 
 const keyPoints = [
@@ -416,8 +416,8 @@ function App() {
           <div>
             <SectionHeader
               kicker="Stability and data efficiency"
-              title="SFT is sensitive. RL-Co is the payoff."
-              body="The paper analyzes the SFT mixture ratio α, the RL regularization weight β, and scaling behavior with additional real-world demonstrations."
+              title="Stable gains with less real-world data"
+              body="The paper analyzes hyperparameter sensitivity across α and β, then shows how performance scales with additional real-world demonstrations."
             />
             <div className="insight-list">
               <article className="insight-item">
