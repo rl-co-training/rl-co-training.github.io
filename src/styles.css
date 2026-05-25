@@ -137,8 +137,8 @@ main {
 
 .hero {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.55fr);
+  gap: 2.5rem;
   padding-top: 3.2rem;
   align-items: center;
 }
@@ -168,10 +168,10 @@ main {
 
 .hero-title {
   margin: 0;
-  max-width: 18ch;
-  font-size: clamp(2.35rem, 4.6vw, 4.25rem);
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  max-width: 24ch;
+  font-size: clamp(2.6rem, 3.6vw, 3.65rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
 }
 
 .hero-text,
