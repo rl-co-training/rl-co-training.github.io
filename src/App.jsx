@@ -266,26 +266,26 @@ function App() {
             title="Four real-world tabletop tasks with matched simulation scenes"
             body="Experiments use a Franka Emika Panda robot, RGB observations, fixed camera poses, and ManiSkill environments aligned with the real setup."
           />
-          <div className="visual-grid">
-            <figure className="feature-figure">
-              <img
-                src="/images/env_compare-1.png"
-                alt="Comparison of real-world and simulated views for the four tabletop manipulation tasks."
-              />
-              <figcaption>
-                Real and simulated camera views are aligned by task layout rather than by
-                photorealistic rendering.
-              </figcaption>
-            </figure>
-            <div className="task-asset-stack">
-              <div className="task-grid">
-                {tasks.map((task) => (
-                  <article key={task.title} className="task-card">
-                    <h3>{task.title}</h3>
-                    <p>{task.description}</p>
-                  </article>
-                ))}
-              </div>
+          <div className="task-layout">
+            <div className="task-grid">
+              {tasks.map((task) => (
+                <article key={task.title} className="task-card">
+                  <h3>{task.title}</h3>
+                  <p>{task.description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="task-figure-grid">
+              <figure className="feature-figure">
+                <img
+                  src="/images/env_compare-1.png"
+                  alt="Comparison of real-world and simulated views for the four tabletop manipulation tasks."
+                />
+                <figcaption>
+                  Real and simulated camera views are aligned by task layout rather than by
+                  photorealistic rendering.
+                </figcaption>
+              </figure>
               <figure className="feature-figure">
                 <img
                   src="/images/gen_show-1.png"

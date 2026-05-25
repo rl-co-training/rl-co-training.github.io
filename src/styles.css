@@ -447,10 +447,16 @@ main {
   line-height: 1.15;
 }
 
-.visual-grid {
+.visual-grid,
+.task-layout,
+.task-figure-grid {
   display: grid;
-  grid-template-columns: 1.08fr 0.92fr;
   gap: 1rem;
+}
+
+.visual-grid,
+.task-figure-grid {
+  grid-template-columns: 1.08fr 0.92fr;
   align-items: start;
 }
 
@@ -466,12 +472,7 @@ main {
 }
 
 .task-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.task-asset-stack {
-  display: grid;
-  gap: 1rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .task-card {
@@ -632,6 +633,7 @@ th {
   .stats-grid,
   .point-grid,
   .task-grid,
+  .task-figure-grid,
   .card-grid,
   .result-callouts,
   .resource-grid {
