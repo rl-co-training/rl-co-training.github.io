@@ -12,8 +12,8 @@ const keyPoints = [
     title: "Fully leverages real-world and simulation",
     body: (
       <>
-        No high-fidelity simulator is required: simple simulation still boosts real-world success.
-        RL-Co also saves real data, where 20 demos with RL-Co outperform 200 demos with SFT.
+        No high-fidelity simulator is required: simple simulation still boosts real-world success,
+        and RL-Co remains competitive with supervised baselines trained on much more real data.
       </>
     ),
   },
@@ -86,16 +86,22 @@ const stageCards = [
 const resultRows = [
   {
     model: "OpenVLA",
-    realOnly: ["6.3", "20.0", "0.0", "10.0", "16.5"],
-    sft: ["23.4", "51.7", "0.0", "85.0", "40.0"],
-    rlco: ["58.8", "68.3", "35.0", "95.0", "64.0"],
+    realOnly: ["6.3 ± 0.0", "20.0 ± 13.3", "0.0 ± 0.0", "10.0 ± 10.0", "16.5 ± 13.3"],
+    sft: ["23.4 ± 4.7", "51.7 ± 5.0", "0.0 ± 0.0", "85.0 ± 5.0", "40.0 ± 3.7"],
+    rlco: ["58.8 ± 10.0", "68.3 ± 11.7", "35.0 ± 15.0", "95.0 ± 5.0", "64.0 ± 0.7"],
   },
   {
     model: "pi_0.5",
-    realOnly: ["71.9", "0.0", "0.0", "35.0", "26.7"],
-    sft: ["68.8", "10.0", "10.0", "95.0", "45.9"],
-    rlco: ["81.3", "18.4", "65.0", "100.0", "66.2"],
+    realOnly: ["71.9 ± 9.4", "0.0 ± 0.0", "0.0 ± 0.0", "35.0 ± 15.0", "26.7 ± 1.4"],
+    sft: ["68.8 ± 9.4", "10.0 ± 3.3", "10.0 ± 0.0", "95.0 ± 5.0", "45.9 ± 4.4"],
+    rlco: ["81.3 ± 9.4", "18.4 ± 1.7", "65.0 ± 5.0", "100.0 ± 0.0", "66.2 ± 4.0"],
   },
+];
+
+const visualDiversityRows = [
+  ["Heavy DR zero-shot", "10.9 ± 7.8"],
+  ["Cosmos augmentation", "67.2 ± 1.6"],
+  ["RL-Co", "81.3 ± 9.4"],
 ];
 
 const generalizationRows = [
@@ -115,9 +121,42 @@ const ablations = [
   {
     title: "Real-world supervision matters in both stages",
     text:
-      "Removing real-world supervision in Stage II drops Pick and Place success from 84.38% to 40.25%. Removing it in both stages collapses performance to 6.25%.",
+      "On Pick and Place with π₀.₅, using real-world supervision in both stages reaches 81.3% success. Removing it from Stage II drops success to 40.3%, while weaker real anchoring falls to 12.5% or 6.3%.",
     image: "/images/ablation_heatmap-1.png",
     alt: "Heatmap ablation comparing real-world supervision in Stage I and Stage II.",
+  },
+];
+
+const additionalAnalyses = [
+  {
+    title: "Dexterous peg insertion",
+    body:
+      "RL-Co also improves a more precision-demanding peg insertion task with the π₀.₅ backbone.",
+    image: "/images/peg_insertion.png",
+    alt: "Execution sequence for a peg insertion task.",
+    rows: [
+      ["SFT sim-real co-training", "32.5"],
+      ["RL-Co", "42.5"],
+    ],
+  },
+  {
+    title: "Sim-real correlation",
+    body:
+      "Intermediate checkpoints generally improve in the real world as simulation success rises, supporting simulation convergence as a practical selection signal.",
+    image: "/images/sim_real_correlation.png",
+    alt: "Plots comparing simulation and real-world success during RL co-training.",
+  },
+  {
+    title: "Additional Pick and Place baselines",
+    body:
+      "One-stage RL fails without task-specific SFT initialization, while RialTo-style distillation improves over SFT but remains below direct RL-Co.",
+    image: "/images/one_stage_baseline.png",
+    alt: "Simulation success rate of one-stage RL co-training.",
+    rows: [
+      ["One-stage RL co-training", "0.0"],
+      ["RialTo-style distillation", "75.0"],
+      ["RL-Co", "81.3"],
+    ],
   },
 ];
 
@@ -277,7 +316,7 @@ function App() {
             <div className="task-figure-grid">
               <figure className="feature-figure">
                 <img
-                  src="/images/env_compare-1.png"
+                  src="/images/env_visualization_tasks.png"
                   alt="Comparison of real-world and simulated views for the four tabletop manipulation tasks."
                 />
                 <figcaption>
@@ -287,12 +326,12 @@ function App() {
               </figure>
               <figure className="feature-figure">
                 <img
-                  src="/images/gen_show-1.png"
-                  alt="Examples of real-world assets and initial-state variations used in the RL-Co tabletop tasks."
+                  src="/images/env_visualization_diversity.png"
+                  alt="Examples of visual domain randomization in simulation and real data augmentation."
                 />
                 <figcaption>
-                  Real-world task assets cover varied objects and initial states for deployment
-                  evaluation.
+                  Visual diversity baselines stress test whether appearance variation alone explains
+                  RL-Co's gains.
                 </figcaption>
               </figure>
             </div>
@@ -358,6 +397,34 @@ function App() {
               <h3>66.2% average success</h3>
               <p>Improves over SFT co-training by 20.3 points and reaches 65.0% on Open Drawer with only limited real demonstrations.</p>
             </article>
+          </div>
+          <div className="baseline-panel">
+            <div>
+              <p className="card-kicker">Targeted Baseline</p>
+              <h3>Visual diversity is not enough</h3>
+              <p>
+                On Pick and Place with <PiModel />, RL-Co remains ahead of heavy visual domain
+                randomization and Cosmos-based real-data augmentation.
+              </p>
+            </div>
+            <div className="table-shell compact-table baseline-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>SR (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {visualDiversityRows.map((row) => (
+                    <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
+                      <td>{row[0]}</td>
+                      <td>{row[1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
@@ -430,8 +497,8 @@ function App() {
               <article className="insight-item">
                 <h3>Real-data efficiency</h3>
                 <p>
-                  On Open Drawer, baselines trained with 200 real demonstrations still trail or
-                  roughly match RL-Co trained with only 20 real demonstrations.
+                  On Open Drawer, RL-Co with limited real demonstrations remains competitive with
+                  supervised baselines trained with substantially more real data.
                 </p>
               </article>
             </div>
@@ -451,6 +518,45 @@ function App() {
               />
               <figcaption>RL-Co substantially reduces the real-world data budget needed for deployment.</figcaption>
             </figure>
+          </div>
+        </section>
+
+        <section className="section">
+          <SectionHeader
+            kicker="Additional Analyses"
+            title="Stress tests beyond the main tabletop benchmark"
+            body="The appendix adds targeted checks for dexterous manipulation, sim-real checkpoint trends, and alternative ways of using simulation data."
+          />
+          <div className="analysis-grid">
+            {additionalAnalyses.map((item) => (
+              <article key={item.title} className="analysis-card">
+                <div className="analysis-copy">
+                  <h3>{item.title}</h3>
+                  <p>{item.body}</p>
+                </div>
+                <img src={item.image} alt={item.alt} />
+                {item.rows ? (
+                  <div className="mini-table-shell">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Method</th>
+                          <th>Real SR (%)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {item.rows.map((row) => (
+                          <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
+                            <td>{row[0]}</td>
+                            <td>{row[1]}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : null}
+              </article>
+            ))}
           </div>
         </section>
 

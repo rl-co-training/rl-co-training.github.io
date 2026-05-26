@@ -160,7 +160,9 @@ main {
 .info-card h3,
 .task-card h3,
 .result-card h3,
+.baseline-panel h3,
 .visual-card h3,
+.analysis-card h3,
 .resource-card h3,
 .insight-item h3 {
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
@@ -180,7 +182,9 @@ main {
 .info-card p,
 .task-card p,
 .result-card p,
+.baseline-panel p,
 .visual-card p,
+.analysis-card p,
 .resource-card p,
 .insight-item p,
 .hero-note,
@@ -235,7 +239,9 @@ main {
 .info-card,
 .task-card,
 .result-card,
+.baseline-panel,
 .visual-card,
+.analysis-card,
 .resource-card,
 .stat-card,
 .table-shell,
@@ -310,6 +316,7 @@ main {
 .task-grid,
 .result-callouts,
 .resource-grid,
+.analysis-grid,
 .point-grid {
   display: grid;
   gap: 1rem;
@@ -358,6 +365,8 @@ main {
 .info-card,
 .task-card,
 .result-card,
+.baseline-panel,
+.analysis-card,
 .resource-card,
 .insight-item {
   border-radius: var(--radius-md);
@@ -438,7 +447,9 @@ main {
 .info-card h3,
 .task-card h3,
 .result-card h3,
+.baseline-panel h3,
 .visual-card h3,
+.analysis-card h3,
 .resource-card h3,
 .insight-item h3,
 .point-card h3 {
@@ -520,6 +531,20 @@ th {
   padding: 1.35rem;
 }
 
+.baseline-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+  gap: 1rem;
+  align-items: start;
+  margin-top: 1rem;
+  padding: 1.35rem;
+  border-radius: var(--radius-lg);
+}
+
+.baseline-table {
+  box-shadow: none;
+}
+
 .compact-table th,
 .compact-table td {
   white-space: normal;
@@ -550,6 +575,41 @@ th {
 
 .insight-item {
   padding: 1.35rem;
+}
+
+.analysis-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.analysis-card {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+.analysis-copy {
+  padding: 0.35rem 0.35rem 0;
+}
+
+.analysis-card img {
+  width: 100%;
+  border-radius: calc(var(--radius-md) - 4px);
+}
+
+.mini-table-shell {
+  overflow-x: auto;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px solid var(--line);
+}
+
+.mini-table-shell th,
+.mini-table-shell td {
+  padding: 0.72rem 0.75rem;
+  white-space: normal;
 }
 
 .resource-grid {
@@ -593,7 +653,9 @@ th {
 .task-card,
 .feature-figure,
 .result-card,
+.baseline-panel,
 .visual-card,
+.analysis-card,
 .insight-item,
 .resource-card {
   animation: rise-in 720ms ease both;
@@ -626,7 +688,8 @@ th {
 @media (max-width: 1100px) {
   .hero,
   .split-section,
-  .visual-grid {
+  .visual-grid,
+  .baseline-panel {
     grid-template-columns: 1fr;
   }
 
@@ -636,6 +699,7 @@ th {
   .task-figure-grid,
   .card-grid,
   .result-callouts,
+  .analysis-grid,
   .resource-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -663,8 +727,10 @@ th {
   .stats-grid,
   .point-grid,
   .task-grid,
+  .task-figure-grid,
   .card-grid,
   .result-callouts,
+  .analysis-grid,
   .resource-grid {
     grid-template-columns: 1fr;
   }
