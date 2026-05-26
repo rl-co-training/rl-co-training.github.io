@@ -107,12 +107,6 @@ const visualDiversityRows = [
   ["RL-Co", "81.3 ± 9.4"],
 ];
 
-const generalizationRows = [
-  ["Real-Only", "71.9", "25.0", "40.0"],
-  ["SFT Co-Training", "68.8", "31.3", "55.0"],
-  ["RL-Co", "81.3", "56.3", "70.0"],
-];
-
 const ablations = [
   {
     title: "Simulation SFT initialization matters",
@@ -431,27 +425,12 @@ function App() {
               title="Smaller drops under distribution shift"
               body="On Pick and Place with π₀.₅, RL-Co maintains substantially stronger performance on unseen object categories and unseen initial states."
             />
-            <div className="table-shell compact-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Training</th>
-                    <th>In-distribution</th>
-                    <th>Unseen objects</th>
-                    <th>Unseen states</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {generalizationRows.map((row) => (
-                    <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
-                      {row.map((value) => (
-                        <td key={`${row[0]}-${value}`}>{value}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <figure className="feature-figure">
+              <img
+                src="/images/generalization_bars.png"
+                alt="Bar chart comparing Pick and Place success rates for Real-Only, SFT Co-Training, and RL-Co under in-distribution, unseen object, and unseen state settings."
+              />
+            </figure>
           </div>
         </section>
 
