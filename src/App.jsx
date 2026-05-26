@@ -128,7 +128,6 @@ const resources = [
     href: "https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/co_training.html",
     kind: "primary",
   },
-  { label: "Code", href: "https://github.com/RLinf/RLinf", kind: "primary" },
   {
     label: "Hugging Face",
     href: "https://huggingface.co/collections/RLinf/rl-co",
