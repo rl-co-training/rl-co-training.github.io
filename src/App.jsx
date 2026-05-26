@@ -153,7 +153,7 @@ const pickPlaceBaselineRows = [
 const resources = [
   { label: "arXiv", href: "https://arxiv.org/abs/2602.12628", kind: "primary" },
   {
-    label: "Doc",
+    label: "Code Start Here",
     href: "https://rlinf.readthedocs.io/en/latest/rst_source/examples/embodied/co_training.html",
     kind: "primary",
   },
@@ -418,20 +418,18 @@ function App() {
           </div>
         </section>
 
-        <section className="section" id="generalization">
-          <div>
-            <SectionHeader
-              kicker="Generalization"
-              title="Smaller drops under distribution shift"
-              body="On Pick and Place with π₀.₅, RL-Co maintains substantially stronger performance on unseen object categories and unseen initial states."
+        <section className="section split-section" id="generalization">
+          <SectionHeader
+            kicker="Generalization"
+            title="Smaller drops under distribution shift"
+            body="On Pick and Place with π₀.₅, RL-Co maintains substantially stronger performance on unseen object categories and unseen initial states."
+          />
+          <figure className="feature-figure generalization-figure">
+            <img
+              src="/images/generalization_bars.png"
+              alt="Bar chart comparing Pick and Place success rates for Real-Only, SFT Co-Training, and RL-Co under in-distribution, unseen object, and unseen state settings."
             />
-            <figure className="feature-figure">
-              <img
-                src="/images/generalization_bars.png"
-                alt="Bar chart comparing Pick and Place success rates for Real-Only, SFT Co-Training, and RL-Co under in-distribution, unseen object, and unseen state settings."
-              />
-            </figure>
-          </div>
+          </figure>
         </section>
 
         <section className="section" id="ablations">
