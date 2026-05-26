@@ -113,7 +113,8 @@ main {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.55rem 1rem;
+  justify-content: flex-end;
 }
 
 .site-nav a {
@@ -580,6 +581,10 @@ th {
 .analysis-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
+}
+
+.analysis-grid.analysis-grid-single {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .analysis-card {

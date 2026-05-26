@@ -2,7 +2,10 @@ const navItems = [
   { label: "Method", href: "#method" },
   { label: "Tasks", href: "#tasks" },
   { label: "Results", href: "#results" },
+  { label: "Generalization", href: "#generalization" },
   { label: "Ablations", href: "#ablations" },
+  { label: "Feasibility", href: "#simulation" },
+  { label: "Baselines", href: "#baselines" },
   { label: "BibTeX", href: "#resources" },
 ];
 
@@ -127,37 +130,30 @@ const ablations = [
   },
 ];
 
-const additionalAnalyses = [
-  {
-    title: "Dexterous peg insertion",
-    body:
-      "RL-Co also improves a more precision-demanding peg insertion task with the π₀.₅ backbone.",
-    image: "/images/peg_insertion.png",
-    alt: "Execution sequence for a peg insertion task.",
-    rows: [
-      ["SFT sim-real co-training", "32.5"],
-      ["RL-Co", "42.5"],
-    ],
-  },
-  {
-    title: "Sim-real correlation",
-    body:
-      "Intermediate checkpoints generally improve in the real world as simulation success rises, supporting simulation convergence as a practical selection signal.",
-    image: "/images/sim_real_correlation.png",
-    alt: "Plots comparing simulation and real-world success during RL co-training.",
-  },
-  {
-    title: "Additional Pick and Place baselines",
-    body:
-      "One-stage RL fails without task-specific SFT initialization, while RialTo-style distillation improves over SFT but remains below direct RL-Co.",
-    image: "/images/one_stage_baseline.png",
-    alt: "Simulation success rate of one-stage RL co-training.",
-    rows: [
-      ["One-stage RL co-training", "0.0"],
-      ["RialTo-style distillation", "75.0"],
-      ["RL-Co", "81.3"],
-    ],
-  },
+const simulationFeasibility = {
+  title: "Sim-real correlation",
+  body:
+    "Simulation training is meaningful when simulation success and real deployment success trend together. Across intermediate checkpoints, higher simulator success generally aligns with stronger real-world success.",
+  image: "/images/sim_real_correlation.png",
+  alt: "Plots comparing simulation and real-world success during RL co-training.",
+};
+
+const pegInsertion = {
+  title: "Dexterous peg insertion",
+  body:
+    "RL-Co also improves a more precision-demanding peg insertion task with the π₀.₅ backbone.",
+  image: "/images/peg_insertion.png",
+  alt: "Execution sequence for a peg insertion task.",
+  rows: [
+    ["SFT sim-real co-training", "32.5"],
+    ["RL-Co", "42.5"],
+  ],
+};
+
+const pickPlaceBaselineRows = [
+  ["One-stage RL co-training", "0.0"],
+  ["RialTo-style distillation", "75.0"],
+  ["RL-Co", "81.3"],
 ];
 
 const resources = [
@@ -330,8 +326,8 @@ function App() {
                   alt="Examples of visual domain randomization in simulation and real data augmentation."
                 />
                 <figcaption>
-                  Visual diversity baselines stress test whether appearance variation alone explains
-                  RL-Co's gains.
+                  Appearance-focused baselines test whether visual variation, rather than
+                  closed-loop interaction, explains RL-Co's gains.
                 </figcaption>
               </figure>
             </div>
@@ -401,10 +397,10 @@ function App() {
           <div className="baseline-panel">
             <div>
               <p className="card-kicker">Targeted Baseline</p>
-              <h3>Visual diversity is not enough</h3>
+              <h3>Interaction diversity matters more</h3>
               <p>
-                On Pick and Place with <PiModel />, RL-Co remains ahead of heavy visual domain
-                randomization and Cosmos-based real-data augmentation.
+                On Pick and Place with <PiModel />, RL-Co improves through closed-loop simulation
+                interaction despite large visual and object mismatch, without visual randomization.
               </p>
             </div>
             <div className="table-shell compact-table baseline-table">
@@ -428,7 +424,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="section" id="generalization">
           <div>
             <SectionHeader
               kicker="Generalization"
@@ -521,42 +517,91 @@ function App() {
           </div>
         </section>
 
+        <section className="section" id="simulation">
+          <SectionHeader
+            kicker="Simulation feasibility"
+            title="Why simulation training is meaningful"
+            body="RL-Co uses simulation as an optimization environment because simulator progress provides a useful signal for real-world deployment."
+          />
+          <div className="analysis-grid analysis-grid-single">
+            <article className="analysis-card">
+              <div className="analysis-copy">
+                <h3>{simulationFeasibility.title}</h3>
+                <p>{simulationFeasibility.body}</p>
+              </div>
+              <img src={simulationFeasibility.image} alt={simulationFeasibility.alt} />
+            </article>
+          </div>
+        </section>
+
         <section className="section">
           <SectionHeader
-            kicker="Additional Analyses"
-            title="Stress tests beyond the main tabletop benchmark"
-            body="The appendix adds targeted checks for dexterous manipulation, sim-real checkpoint trends, and alternative ways of using simulation data."
+            kicker="Additional evaluation"
+            title="Dexterous peg insertion"
+            body="The appendix also checks whether the approach transfers to a precision-demanding manipulation task beyond the main tabletop benchmark."
           />
-          <div className="analysis-grid">
-            {additionalAnalyses.map((item) => (
-              <article key={item.title} className="analysis-card">
-                <div className="analysis-copy">
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </div>
-                <img src={item.image} alt={item.alt} />
-                {item.rows ? (
-                  <div className="mini-table-shell">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Method</th>
-                          <th>Real SR (%)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {item.rows.map((row) => (
-                          <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
-                            <td>{row[0]}</td>
-                            <td>{row[1]}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : null}
-              </article>
-            ))}
+          <div className="analysis-grid analysis-grid-single">
+            <article className="analysis-card">
+              <div className="analysis-copy">
+                <h3>{pegInsertion.title}</h3>
+                <p>{pegInsertion.body}</p>
+              </div>
+              <img src={pegInsertion.image} alt={pegInsertion.alt} />
+              <div className="mini-table-shell">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Method</th>
+                      <th>Real SR (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pegInsertion.rows.map((row) => (
+                      <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
+                        <td>{row[0]}</td>
+                        <td>{row[1]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className="section" id="baselines">
+          <SectionHeader
+            kicker="Pick and Place baselines"
+            title="Alternative simulation uses remain below direct RL-Co"
+            body="Additional baselines isolate how simulation is used on Pick and Place with π₀.₅."
+          />
+          <div className="baseline-panel">
+            <div>
+              <p className="card-kicker">Additional Baselines</p>
+              <h3>Task initialization and direct RL matter</h3>
+              <p>
+                One-stage RL fails without task-specific SFT initialization, while RialTo-style
+                distillation improves over SFT but remains below direct RL-Co.
+              </p>
+            </div>
+            <div className="table-shell compact-table baseline-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Real SR (%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pickPlaceBaselineRows.map((row) => (
+                    <tr key={row[0]} className={row[0] === "RL-Co" ? "table-accent" : ""}>
+                      <td>{row[0]}</td>
+                      <td>{row[1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
 
