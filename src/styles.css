@@ -46,6 +46,11 @@ img {
   max-width: 100%;
 }
 
+video {
+  display: block;
+  max-width: 100%;
+}
+
 button,
 input,
 textarea,
@@ -261,7 +266,8 @@ main {
 
 .hero-panel img,
 .visual-card img,
-.feature-figure img {
+.feature-figure img,
+.intro-video {
   border-radius: calc(var(--radius-md) - 4px);
 }
 
@@ -486,6 +492,17 @@ main {
 .feature-figure figcaption {
   margin-top: 0.85rem;
   font-size: 0.95rem;
+}
+
+.intro-video-figure {
+  overflow: hidden;
+}
+
+.intro-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #101516;
+  object-fit: contain;
 }
 
 .task-grid {

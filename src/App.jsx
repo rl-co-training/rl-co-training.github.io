@@ -1,4 +1,5 @@
 const navItems = [
+  { label: "Video", href: "#video" },
   { label: "Method", href: "#method" },
   { label: "Tasks", href: "#tasks" },
   { label: "Results", href: "#results" },
@@ -237,6 +238,32 @@ function App() {
               alt="Introductory figure for RL-Co showing the motivation and high-level sim-real co-training idea."
             />
           </div>
+        </section>
+
+        <section className="section" id="video">
+          <SectionHeader
+            kicker="Video"
+            title="Project introduction"
+            body="This video introduces the motivation, method, and real-world results behind RL-Co."
+          />
+          <figure className="feature-figure intro-video-figure">
+            <video
+              className="intro-video"
+              autoPlay
+              controls
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Project introduction video for RL-Co."
+            >
+              <source src="/videos/rl-co-introduction.mp4" type="video/mp4" />
+            </video>
+            <figcaption>
+              The video summarizes RL-Co's sim-real co-training framework and highlights how
+              simulator reward optimization is anchored by real-world supervision.
+            </figcaption>
+          </figure>
         </section>
 
         <section className="section">
