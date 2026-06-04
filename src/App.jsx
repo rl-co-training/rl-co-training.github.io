@@ -259,10 +259,6 @@ function App() {
             >
               <source src="/videos/rl-co-introduction.mp4" type="video/mp4" />
             </video>
-            <figcaption>
-              The video summarizes RL-Co's sim-real co-training framework and highlights how
-              simulator reward optimization is anchored by real-world supervision.
-            </figcaption>
           </figure>
         </section>
 
